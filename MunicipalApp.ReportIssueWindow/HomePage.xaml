@@ -3,23 +3,40 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="HomePage">
 
-    <Grid Background="Transparent">
-        <!-- ✅ ADD THIS LINE -->
+    <Grid Background="WhiteSmoke">
 
-        <!-- Main Menu Buttons -->
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,30">
             <TextBlock Text="🏛️ Welcome to Municipal Services"
                        FontSize="24" FontWeight="Bold"
                        HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+           
             <Button Content="📋 Report an Issue" Width="200" Height="40"
                     Click="ReportIssue_Click"
                     Background="#27AE60" Foreground="White" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            
             <Button Content="ℹ️ Learn More" Width="200" Height="40"
                     Click="LearnMore_Click"
-                    Background="#3498DB" Foreground="White" FontWeight="Bold"/>
+                    Background="#3498DB" Foreground="White"
+                    FontWeight="Bold" Margin="0,0,0,10"/>
+
+           
+            <Button Content="📅 Local Events and Announcements (coming soon)"
+                    Width="360" Height="35"
+                    Click="LocalEvents_Click"
+                    Background="#E0E0E0" Foreground="Gray"
+                    BorderBrush="#B0B0B0" FontWeight="SemiBold" Margin="0,0,0,5"/>
+
+            
+            <Button Content="🛠️ Service Request Status (coming soon)"
+                    Width="330" Height="35"
+                    Click="ServiceStatus_Click"
+                    Background="#E0E0E0" Foreground="Gray"
+                    BorderBrush="#B0B0B0" FontWeight="SemiBold"/>
         </StackPanel>
 
-        <!-- Floating Chatbot Button -->
+        <!-- Chatbot Button -->
         <Button x:Name="btnChatbot"
                 Content="💬"
                 Width="60" Height="60"
@@ -54,40 +71,22 @@
                 </Grid.RowDefinitions>
 
                 <!-- Header -->
-                <Border Grid.Row="0"
-                        Background="#34495E"
-                        CornerRadius="10,10,0,0"
-                        Padding="10">
+                <Border Grid.Row="0" Background="#34495E" CornerRadius="10,10,0,0" Padding="10">
                     <TextBlock Text="🤖 Municipal Chat Assistant"
-                               Foreground="White"
-                               FontSize="16"
-                               FontWeight="SemiBold"
-                               VerticalAlignment="Center"/>
+                               Foreground="White" FontSize="16"
+                               FontWeight="SemiBold" VerticalAlignment="Center"/>
                 </Border>
 
                 <!-- Chat History -->
-                <ScrollViewer Grid.Row="1"
-                              Margin="10"
-                              VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="ChatHistory"
-                                Orientation="Vertical"
-                                VerticalAlignment="Top"/>
+                <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ChatHistory" Orientation="Vertical" VerticalAlignment="Top"/>
                 </ScrollViewer>
 
                 <!-- Input Section -->
-                <Border Grid.Row="2"
-                        Background="#F0F0F0"
-                        Padding="10"
-                        CornerRadius="0,0,10,10">
+                <Border Grid.Row="2" Background="#F0F0F0" Padding="10" CornerRadius="0,0,10,10">
                     <DockPanel>
-                        <!-- Input Box -->
-                        <Border Background="White"
-                                CornerRadius="5"
-                                BorderBrush="#CCCCCC"
-                                BorderThickness="1"
-                                Height="45"
-                                Width="320"
-                                Margin="0,0,10,0">
+                        <Border Background="White" CornerRadius="5" BorderBrush="#CCCCCC"
+                                BorderThickness="1" Height="45" Width="320" Margin="0,0,10,0">
                             <TextBox x:Name="txtChatInput"
                                      AcceptsReturn="True"
                                      TextWrapping="Wrap"
@@ -98,11 +97,8 @@
                                      Padding="8"
                                      KeyDown="txtChatInput_KeyDown"/>
                         </Border>
-
-                        <!-- Send Button -->
                         <Button Content="Send"
-                                Width="60"
-                                Height="45"
+                                Width="60" Height="45"
                                 Background="#27AE60"
                                 Foreground="White"
                                 FontWeight="Bold"
@@ -114,6 +110,5 @@
                 </Border>
             </Grid>
         </Border>
-
     </Grid>
 </Page>

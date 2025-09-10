@@ -29,6 +29,19 @@ namespace ProgPart17312
             }
         }
 
+        // 🚫 Disabled Feature: Local Events
+        private void LocalEvents_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("⚠️ 'Local Events and Announcements' is not available yet.", "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        // 🚫 Disabled Feature: Service Request Status
+        private void ServiceStatus_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("⚠️ 'Service Request Status' is not available yet.", "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
         private void LearnMore_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(
