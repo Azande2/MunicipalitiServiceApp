@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="HomePage">
 
-    <Grid>
+    <Grid Background="Transparent">
+        <!-- ✅ ADD THIS LINE -->
 
         <!-- Main Menu Buttons -->
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,30">
