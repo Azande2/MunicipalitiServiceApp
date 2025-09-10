@@ -137,19 +137,26 @@ namespace ProgPart17312
             }
         }
 
-        // ✅ Automatically close the chatbot if clicking outside of it
+        
         private void Page_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (ChatPanel.Visibility == Visibility.Visible)
             {
-                var clickedElement = Mouse.DirectlyOver as DependencyObject;
+                DependencyObject clickedElement = Mouse.DirectlyOver as DependencyObject;
 
-                if (clickedElement != null && !IsDescendantOf(clickedElement, ChatPanel))
+                while (clickedElement != null)
                 {
-                    ChatPanel.Visibility = Visibility.Collapsed;
+                    if (clickedElement == ChatPanel)
+                        return; 
+
+                    clickedElement = VisualTreeHelper.GetParent(clickedElement);
                 }
+
+                // Clicked outside the chatbot
+                ChatPanel.Visibility = Visibility.Collapsed;
             }
         }
+
 
         private bool IsDescendantOf(DependencyObject child, DependencyObject parent)
         {

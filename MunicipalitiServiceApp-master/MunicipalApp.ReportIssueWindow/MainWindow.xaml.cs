@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +17,7 @@ namespace ProgPart17312
         private string attachedFilePath = "";
         private ChatMessageQueue chatQueue = new ChatMessageQueue();
         private StackLogHistory logHistory = new StackLogHistory();
-
+        private List<Report> submittedReports = new List<Report>();
 
         public MainWindow()
         {
@@ -54,7 +55,6 @@ namespace ProgPart17312
             reportProgress.Value = 100;
             lblStatus.Content = "✔️ Report submitted successfully!";
 
-            // ✅ Summary string
             string summary = $"📍 Location: {location}\n" +
                              $"📂 Category: {category}\n" +
                              $"📝 Description: {description}\n" +
@@ -62,16 +62,14 @@ namespace ProgPart17312
                              $"📎 File: {attachedFilePath}";
 
             logHistory.Push($"[REPORT LOGGED] - {DateTime.Now}: {location}, {category}");
+            submittedReports.Add(new Report { Location = location, Category = category, Description = description, Date = date, FileName = attachedFilePath });
 
-            // ✅ Step 1: Show user-submitted info
             MessageBoxResult result = MessageBox.Show(summary, "✅ Report Submitted", MessageBoxButton.OK, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.OK)
             {
-                // ✅ Step 2: Report assigned
                 MessageBox.Show("✅ Your report has been received and assigned to a team member.", "Report Assigned", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // ✅ Step 3: Technician will arrive
                 DispatcherTimer delayTimer = new DispatcherTimer
                 {
                     Interval = TimeSpan.FromSeconds(3)
@@ -79,16 +77,11 @@ namespace ProgPart17312
                 delayTimer.Tick += (s, args) =>
                 {
                     delayTimer.Stop();
-                    MessageBox.Show(
-                        $"{summary}\n\n🛠️ A technician will arrive shortly to resolve the issue.",
-                        "Team Dispatched",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
+                    MessageBox.Show($"{summary}\n\n🛠️ A technician will arrive shortly to resolve the issue.",
+                        "Team Dispatched", MessageBoxButton.OK, MessageBoxImage.Information);
                 };
                 delayTimer.Start();
 
-                // ✅ Step 4: Clear fields
                 txtLocation.Clear();
                 cbCategory.SelectedIndex = -1;
                 rtbDescription.Document.Blocks.Clear();
@@ -114,6 +107,20 @@ namespace ProgPart17312
             homeWindow.Show();
             this.Close();
         }
+        private void ViewReports_Click(object sender, RoutedEventArgs e)
+        {
+            Window viewerWindow = new Window
+            {
+                Title = "View Submitted Reports",
+                Content = new ReportViewerPage(logHistory),
+                Width = 600,
+                Height = 500,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+
+            viewerWindow.ShowDialog();
+        }
+
 
         private void btnHelpFloat_Click(object sender, RoutedEventArgs e)
         {
@@ -156,11 +163,8 @@ namespace ProgPart17312
             userMessage = userMessage.ToLower();
 
             if (userMessage.Contains("hello") || userMessage.Contains("hi") || userMessage.Contains("hey"))
-            {
                 return "Hello! 👋 How can I assist you today?\n\nChoose an option:\n1️⃣ How to report an issue\n2️⃣ View service categories\n3️⃣ File attachments help\n4️⃣ Technician availability";
-            }
 
-            // Option-based replies
             if (userMessage == "1" || userMessage.Contains("how to report"))
                 return "To report an issue, click 📋 'Report an Issue' and complete the form with location, category, and description.";
 
@@ -173,7 +177,6 @@ namespace ProgPart17312
             if (userMessage == "4" || userMessage.Contains("technician") || userMessage.Contains("coming"))
                 return "After a report is submitted, a technician is dispatched within 2-4 hours depending on the severity.";
 
-            // Existing intents
             if (userMessage.Contains("report") && userMessage.Contains("issue"))
                 return "Click '📋 Report an Issue' and provide the required info: location, category, and description.";
 
@@ -200,7 +203,6 @@ namespace ProgPart17312
 
             return "I'm here to help! Try sending 'hi' to get started or ask a question about services, files, or reporting.";
         }
-
 
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {

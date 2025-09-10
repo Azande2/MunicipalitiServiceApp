@@ -75,6 +75,12 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,10">
             <Button Content="✅ Submit" Width="120" Margin="10" Click="Submit_Click" Background="#27AE60" Foreground="White" FontWeight="Bold"/>
             <Button Content="🔙 Back to Menu" Width="120" Margin="10" Click="BackToMenu_Click" Background="#95A5A6" Foreground="White"/>
+            <Button Content="📖 View Reports"
+        Width="120"
+        Height="35"
+        Margin="10"
+        Click="ViewReports_Click"/>
+
         </StackPanel>
     </Grid>
 </Window>
