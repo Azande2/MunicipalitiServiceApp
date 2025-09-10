@@ -156,34 +156,51 @@ namespace ProgPart17312
             userMessage = userMessage.ToLower();
 
             if (userMessage.Contains("hello") || userMessage.Contains("hi") || userMessage.Contains("hey"))
-                return "Hello! 👋 How can I assist you with municipal services today?";
+            {
+                return "Hello! 👋 How can I assist you today?\n\nChoose an option:\n1️⃣ How to report an issue\n2️⃣ View service categories\n3️⃣ File attachments help\n4️⃣ Technician availability";
+            }
 
+            // Option-based replies
+            if (userMessage == "1" || userMessage.Contains("how to report"))
+                return "To report an issue, click 📋 'Report an Issue' and complete the form with location, category, and description.";
+
+            if (userMessage == "2" || userMessage.Contains("categories") || userMessage.Contains("services"))
+                return "Our services include: 🚰 Water, ⚡ Electricity, 🛣️ Roads, 🧼 Waste, 💡 Streetlights, 📡 Connectivity.";
+
+            if (userMessage == "3" || userMessage.Contains("attach") || userMessage.Contains("file"))
+                return "Click 📎 Attach File in the form to upload evidence (e.g., photo of the issue). Supported formats: JPG, PNG, PDF.";
+
+            if (userMessage == "4" || userMessage.Contains("technician") || userMessage.Contains("coming"))
+                return "After a report is submitted, a technician is dispatched within 2-4 hours depending on the severity.";
+
+            // Existing intents
             if (userMessage.Contains("report") && userMessage.Contains("issue"))
-                return "You can report an issue by clicking '📋 Report an Issue' and completing the required fields.";
+                return "Click '📋 Report an Issue' and provide the required info: location, category, and description.";
 
             if (userMessage.Contains("waste") || userMessage.Contains("garbage") || userMessage.Contains("trash"))
-                return "Waste collection occurs every Monday and Thursday. Please confirm your area for accuracy.";
+                return "Waste collection happens every Monday and Thursday in most areas. Confirm your suburb for details.";
 
             if (userMessage.Contains("electricity") || userMessage.Contains("power"))
-                return "Please check your DB board first. If issues persist, report with your meter number.";
+                return "Please check your DB board and nearby outages. If it's isolated, submit a report with meter number.";
 
             if (userMessage.Contains("water"))
-                return "Please include the street name and describe the problem (e.g., leak, outage).";
+                return "Specify if it's a leak, burst pipe, or outage. Include location for faster resolution.";
 
             if (userMessage.Contains("payment") || userMessage.Contains("pay"))
-                return "Visit the municipal billing portal or call customer care to make a payment.";
-
-            if (userMessage.Contains("attach") || userMessage.Contains("file"))
-                return "Click 📎 Attach File in the report form to upload supporting documents.";
+                return "Visit the municipal billing portal online or go to the nearest municipal office to make a payment.";
 
             if (userMessage.Contains("location"))
-                return "Please enter the street name or suburb where the issue is occurring.";
+                return "Please include the street name and suburb so teams can locate the problem easily.";
 
-            if (userMessage.Contains("learn more") || userMessage.Contains("info") || userMessage.Contains("about"))
-                return "We provide services like water, waste, road repairs, and more. Click 'ℹ️ Learn More'.";
+            if (userMessage.Contains("about") || userMessage.Contains("info") || userMessage.Contains("learn"))
+                return "This app helps citizens report service issues, attach evidence, and get real-time assistance.";
 
-            return "Your query has been received. A support assistant will follow up if needed. You can ask about water, waste, roads, electricity, and more!";
+            if (userMessage.Contains("bye") || userMessage.Contains("thanks"))
+                return "You're welcome! 👋 Stay safe and let us know if you need further assistance.";
+
+            return "I'm here to help! Try sending 'hi' to get started or ask a question about services, files, or reporting.";
         }
+
 
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
